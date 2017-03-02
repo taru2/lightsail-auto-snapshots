@@ -5,7 +5,7 @@ from os import getenv
 from sys import stdout
 from time import time
 
-DEFAULT_RETENTION_DAYS = 30
+DEFAULT_RETENTION_DAYS = 7
 AUTO_SNAPSHOT_SUFFIX = 'auto'
 
 

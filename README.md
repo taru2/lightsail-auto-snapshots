@@ -11,7 +11,7 @@ once per day.
 
 Run the deploy script and optionally specify the number of days for which
 snapshots should be retained. If this parameter is omitted, the function will
-keep snapshots for 30 days.
+keep snapshots for 7 days.
 
 This will create all resources in US East (N. Virginia) as it is the only
 Region that currently supports Amazon Lightsail.

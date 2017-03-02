@@ -10,7 +10,7 @@ Parameters:
   RetentionDays:
     Type: String
     Description: The number of days to retain snapshots.
-    Default: 30
+    Default: 7
 
 Metadata:
   AWS::CloudFormation::Interface:
