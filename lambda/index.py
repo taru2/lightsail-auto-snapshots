@@ -8,6 +8,7 @@ from time import time
 DEFAULT_RETENTION_DAYS = 7
 AUTO_SNAPSHOT_SUFFIX = 'auto'
 
+AUTO_SNAPSHOT_TARGET_INSTANCE_PREFIX = "AS-"
 
 def handler(event, context):
     client = boto3.client('lightsail')
@@ -22,13 +23,14 @@ def _snapshot_instances(client, time=time, out=stdout):
     instances = _get_paginated_collection(client.get_instances, 'instances')
 
     for instance in instances:
-        snapshot_name = '{}-system-{}-{}'.format(instance['name'],
-                                                 int(time() * 1000),
-                                                 AUTO_SNAPSHOT_SUFFIX)
+        if instance['name'].startswith(AUTO_SNAPSHOT_TARGET_INSTANCE_PREFIX):
+            snapshot_name = '{}-system-{}-{}'.format(instance['name'],
+                                                    int(time() * 1000),
+                                                     AUTO_SNAPSHOT_SUFFIX)
 
-        client.create_instance_snapshot(instanceName=instance['name'],
-                                        instanceSnapshotName=snapshot_name)
-        print('Created Snapshot name="{}"'.format(snapshot_name), file=out)
+            client.create_instance_snapshot(instanceName=instance['name'],
+                                            instanceSnapshotName=snapshot_name)
+            print('Created Snapshot name="{}"'.format(snapshot_name), file=out)
 
 
 def _prune_snapshots(client, retention_period, datetime=datetime, out=stdout):
