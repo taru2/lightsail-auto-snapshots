@@ -36,7 +36,7 @@ Resources:
         Daily:
           Type: Schedule
           Properties:
-            Schedule: rate(1 day)
+            Schedule: cron(3 15 * * ? *)
       Policies:
           Statement:
             - Resource: "*"
